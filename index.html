@@ -1,11 +1,803 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website</title>
+    <title>La Santurcina - Una Oda A Nuestra Comunidad | Neapolitan Pizza in Santurce</title>
+    <meta name="description" content="La Santurcina is a Neapolitan-style pizzeria in Santurce, San Juan, created by James Beard-nominated Chef Francis Guzmán. Authentic pizza, creative cocktails, and community spirit.">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            color: #1A1A1A;
+            background-color: #FFFFFF;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Navigation Styles */
+        #navbar {
+            background: rgba(26, 26, 26, 0.3);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        #navbar.scrolled {
+            background: rgba(26, 26, 26, 0.95);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #E0A04B;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        /* Hero Section */
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.7) 0%, rgba(224, 160, 75, 0.3) 100%);
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: #E0A04B;
+            color: #1A1A1A;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            background: #c8903e;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(224, 160, 75, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #FFFFFF;
+            padding: 14px 32px;
+            border: 2px solid #FFFFFF;
+            border-radius: 50px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            background: #FFFFFF;
+            color: #1A1A1A;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Fade In Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Image Hover Effects */
+        .image-hover {
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .image-hover img {
+            transition: transform 0.5s ease;
+        }
+
+        .image-hover:hover img {
+            transform: scale(1.08);
+        }
+
+        /* Menu Item Hover */
+        .menu-item {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .menu-item:hover {
+            border-color: #E0A04B;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(224, 160, 75, 0.2);
+        }
+
+        /* Section Divider */
+        .section-divider {
+            width: 80px;
+            height: 3px;
+            background: #E0A04B;
+            margin: 20px auto;
+        }
+
+        /* Background Texture */
+        .texture-overlay {
+            background-image:
+                linear-gradient(rgba(245, 245, 245, 0.95), rgba(245, 245, 245, 0.95)),
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23E0A04B' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        /* Parallax Effect */
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /* Glass Effect */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(224, 160, 75, 0.2);
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Loading Animation for Images */
+        img {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        img.loaded {
+            opacity: 1;
+        }
+
+        /* Pizza Background Animation */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+    </style>
 </head>
-<body>
-    <!-- Content will be added here -->
+<body class="text-[#1A1A1A]">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="#home">
+                        <img src="./assets/image_0.webp" alt="La Santurcina" class="h-12 md:h-16 loaded">
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link text-white hover:text-[#E0A04B] font-light text-sm uppercase tracking-wider">Home</a>
+                    <a href="#story" class="nav-link text-white hover:text-[#E0A04B] font-light text-sm uppercase tracking-wider">Our Story</a>
+                    <a href="#menu" class="nav-link text-white hover:text-[#E0A04B] font-light text-sm uppercase tracking-wider">Menu</a>
+                    <a href="#gallery" class="nav-link text-white hover:text-[#E0A04B] font-light text-sm uppercase tracking-wider">Gallery</a>
+                    <a href="#private-events" class="nav-link text-white hover:text-[#E0A04B] font-light text-sm uppercase tracking-wider">Private Events</a>
+                    <a href="#contact" class="btn-primary">Reservations</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-white focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu md:hidden fixed top-0 right-0 h-full w-64 bg-[#1A1A1A] shadow-2xl z-50">
+            <div class="p-6">
+                <button id="close-menu-btn" class="text-white float-right focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+                <div class="clear-both mt-12 space-y-6">
+                    <a href="#home" class="block text-white hover:text-[#E0A04B] text-lg font-light uppercase tracking-wider">Home</a>
+                    <a href="#story" class="block text-white hover:text-[#E0A04B] text-lg font-light uppercase tracking-wider">Our Story</a>
+                    <a href="#menu" class="block text-white hover:text-[#E0A04B] text-lg font-light uppercase tracking-wider">Menu</a>
+                    <a href="#gallery" class="block text-white hover:text-[#E0A04B] text-lg font-light uppercase tracking-wider">Gallery</a>
+                    <a href="#private-events" class="block text-white hover:text-[#E0A04B] text-lg font-light uppercase tracking-wider">Private Events</a>
+                    <a href="#contact" class="block btn-primary text-center mt-8">Reservations</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="./assets/image_9.jpg" alt="La Santurcina Pizza" class="w-full h-full object-cover loaded">
+            <div class="hero-overlay absolute inset-0"></div>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 text-center px-4 max-w-5xl mx-auto">
+            <img src="./assets/image_0.webp" alt="La Santurcina" class="h-32 md:h-40 mx-auto mb-8 loaded float-animation">
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-light text-white mb-6" style="font-family: 'Montserrat', sans-serif; letter-spacing: 2px;">
+                LA SANTURCINA
+            </h1>
+            <p class="text-2xl md:text-4xl text-white mb-4 font-light" style="font-family: 'Lato', serif;">
+                Una Oda A Nuestra Comunidad
+            </p>
+            <p class="text-lg md:text-xl text-white mb-10 font-light" style="opacity: 0.95;">
+                Authentic Neapolitan Pizza by Chef Francis Guzmán
+            </p>
+            <div class="space-x-4">
+                <a href="tel:787-710-8192" class="btn-primary">Book a Table</a>
+                <a href="#menu" class="btn-secondary">View Menu</a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10">
+            <div class="animate-bounce">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section id="story" class="py-20 md:py-32 bg-[#F5F5F5] texture-overlay relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-light mb-4" style="font-family: 'Montserrat', sans-serif; color: #1A1A1A;">
+                    Our Story
+                </h2>
+                <div class="section-divider"></div>
+                <p class="text-lg max-w-3xl mx-auto text-[#6B7280]">
+                    A passion project from a world-class chef, celebrating community and authentic flavors
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center mb-20">
+                <div class="fade-in">
+                    <h3 class="text-3xl md:text-4xl font-light mb-6" style="font-family: 'Montserrat', sans-serif; color: #1A1A1A;">
+                        From Fine Dining to Community Pizza
+                    </h3>
+                    <p class="text-lg leading-relaxed mb-6 text-[#6B7280]">
+                        <strong class="text-[#E0A04B]">Chef Francis Guzmán</strong>, a James Beard Award semifinalist and graduate of the Culinary Institute of America, brings his world-class culinary expertise to the heart of Santurce.
+                    </p>
+                    <p class="text-lg leading-relaxed mb-6 text-[#6B7280]">
+                        After working in celebrated fine dining restaurants in San Francisco and New York, including as sous-chef at the two Michelin-starred restaurant The Modern, Chef Guzmán returned to his hometown of San Juan with his wife, <strong class="text-[#E0A04B]">Amelia Dill</strong>.
+                    </p>
+                    <p class="text-lg leading-relaxed mb-6 text-[#6B7280]">
+                        Together, they opened <strong class="text-[#E0A04B]">Vianda</strong> in 2017, which quickly became one of Puerto Rico's most acclaimed restaurants. La Santurcina is their second venture—a more casual, community-focused pizzeria that celebrates the vibrant spirit of the Santurce neighborhood.
+                    </p>
+                    <p class="text-lg leading-relaxed mb-8 text-[#6B7280] italic">
+                        "This is an ode to Santurce. Here you'll find the vibrant spirit of the neighborhood, friendly service, creative cocktails, wines, and delicious food."
+                    </p>
+                </div>
+                <div class="fade-in image-hover">
+                    <img src="./assets/image_7.jpg" alt="La Santurcina Interior" class="w-full h-auto rounded-lg shadow-2xl">
+                </div>
+            </div>
+
+            <!-- Accolades Section -->
+            <div class="fade-in text-center mb-12">
+                <h3 class="text-2xl md:text-3xl font-light mb-8" style="font-family: 'Montserrat', sans-serif; color: #1A1A1A;">
+                    Press & Accolades
+                </h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="glass-effect p-6 rounded-lg">
+                        <p class="text-[#E0A04B] font-bold text-lg mb-2">Bon Appétit</p>
+                        <p class="text-sm text-[#6B7280]">"The Pizza in Puerto Rico Is So, So Good Right Now"</p>
+                    </div>
+                    <div class="glass-effect p-6 rounded-lg">
+                        <p class="text-[#E0A04B] font-bold text-lg mb-2">Eater</p>
+                        <p class="text-sm text-[#6B7280]">"The 25 Essential San Juan Restaurants"</p>
+                    </div>
+                    <div class="glass-effect p-6 rounded-lg">
+                        <p class="text-[#E0A04B] font-bold text-lg mb-2">James Beard</p>
+                        <p class="text-sm text-[#6B7280]">Multiple Semifinalist Nominations</p>
+                    </div>
+                    <div class="glass-effect p-6 rounded-lg">
+                        <p class="text-[#E0A04B] font-bold text-lg mb-2">El Nuevo Día</p>
+                        <p class="text-sm text-[#6B7280]">"Una de las pizzerías de moda del área metro"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section class="py-20 md:py-24 bg-white relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-light mb-4" style="font-family: 'Montserrat', sans-serif; color: #1A1A1A;">
+                    Neapolitan Excellence
+                </h2>
+                <div class="section-divider"></div>
+                <p class="text-lg max-w-3xl mx-auto text-[#6B7280]">
+                    Authentic pizza-making with house-made mozzarella, artisan sauce, and the finest ingredients
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="fade-in text-center p-8 glass-effect rounded-lg">
+                    <div class="text-5xl mb-4">🍕</div>
+                    <h3 class="text-2xl font-normal mb-3" style="font-family: 'Montserrat', sans-serif; color: #1A1A1A;">
+                        House-Made Everything
+                    </h3>
+                    <p class="text-[#6B7280]">
+                        Our mozzarella and sauce are made fresh in-house daily, following traditional Neapolitan methods.
+                    </p>
+                </div>
+
+                <div class="fade-in text-center p-8 glass-effect rounded-lg">
+                    <div class="text-5xl mb-4">🍸</div>
+                    <h3 class="text-2xl font-normal mb-3" style="font-family: 'Montserrat', sans-serif; color: #1A1A1A;">
+                        Creative Cocktails
+                    </h3>
+                    <p class="text-[#6B7280]">
+                        Handcrafted cocktails and carefully curated wine selection to complement every meal.
+                    </p>
+                </div>
+
+                <div class="fade-in text-center p-8 glass-effect rounded-lg">
+                    <div class="text-5xl mb-4">❤️</div>
+                    <h3 class="text-2xl font-normal mb-3" style="font-family: 'Montserrat', sans-serif; color: #1A1A1A;">
+                        Community Spirit
+                    </h3>
+                    <p class="text-[#6B7280]">
+                        A warm, welcoming atmosphere where neighbors become friends over great food.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-20 md:py-32 bg-[#F5F5F5] texture-overlay relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-light mb-4" style="font-family: 'Montserrat', sans-serif; color: #1A1A1A;">
+                    Our Menu
+                </h2>
+                <div class="section-divider"></div>
+                <p class="text-lg max-w-3xl mx-auto text-[#6B7280]">
+                    Authentic Neapolitan pizzas, creative appetizers, and craft cocktails
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <!-- Menu Item 1 -->
+                <div class="menu-item fade-in bg-white rounded-lg overflow-hidden shadow-lg">
+                    <div class="overflow-hidden">
+                        <img src="./assets/image_9.jpg" alt="Neapolitan Pizza" class="w-full h-64 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-normal mb-2" style="font-family: 'Montserrat', sans-serif; color: #1A1A1A;">
+                            Neapolitan Pizzas
+                        </h3>
+                        <p class="mb-4 text-[#6B7280]">
+                            Authentic wood-fired pizzas with house-made mozzarella and sauce. Classic and creative variations available.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Menu Item 2 -->
+                <div class="menu-item fade-in bg-white rounded-lg overflow-hidden shadow-lg">
+                    <div class="overflow-hidden">
+                        <img src="./assets/image_6.jpg" alt="Appetizers" class="w-full h-64 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-normal mb-2" style="font-family: 'Montserrat', sans-serif; color: #1A1A1A;">
+                            Appetizers & Sides
+                        </h3>
+                        <p class="mb-4 text-[#6B7280]">
+                            Fresh salads, artisan breads, and creative small plates to start your meal.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Menu Item 3 -->
+                <div class="menu-item fade-in bg-white rounded-lg overflow-hidden shadow-lg">
+                    <div class="overflow-hidden">
+                        <img src="./assets/image_8.jpg" alt="Cocktails" class="w-full h-64 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-normal mb-3" style="font-family: 'Montserrat', sans-serif; color: #1A1A1A;">
+                            Craft Cocktails & Wine
+                        </h3>
+                        <p class="mb-4 text-[#6B7280]">
+                            Handcrafted cocktails and carefully selected wines to complement your pizza.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center fade-in">
+                <p class="text-lg mb-6 text-[#6B7280]">
+                    Our menu features seasonal variations and daily specials crafted with care.
+                </p>
+                <a href="tel:787-710-8192" class="btn-primary">Call for Today's Specials</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 md:py-24 bg-white relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-light mb-4" style="font-family: 'Montserrat', sans-serif; color: #1A1A1A;">
+                    Gallery
+                </h2>
+                <div class="section-divider"></div>
+                <p class="text-lg max-w-3xl mx-auto text-[#6B7280]">
+                    Experience the vibrant atmosphere and delicious creations at La Santurcina
+                </p>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="fade-in image-hover h-80">
+                    <img src="./assets/image_14.webp" alt="Restaurant Atmosphere" class="w-full h-full object-cover rounded-lg">
+                </div>
+                <div class="fade-in image-hover h-80">
+                    <img src="./assets/image_15.webp" alt="Pizza Making" class="w-full h-full object-cover rounded-lg">
+                </div>
+                <div class="fade-in image-hover h-80">
+                    <img src="./assets/image_18.webp" alt="Dining Experience" class="w-full h-full object-cover rounded-lg">
+                </div>
+                <div class="fade-in image-hover h-80">
+                    <img src="./assets/image_21.webp" alt="Fresh Ingredients" class="w-full h-full object-cover rounded-lg">
+                </div>
+                <div class="fade-in image-hover h-80">
+                    <img src="./assets/image_28.webp" alt="Cocktails" class="w-full h-full object-cover rounded-lg">
+                </div>
+                <div class="fade-in image-hover h-80">
+                    <img src="./assets/image_29.webp" alt="Interior Design" class="w-full h-full object-cover rounded-lg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Private Events Section -->
+    <section id="private-events" class="py-20 md:py-32 bg-[#F5F5F5] texture-overlay relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-light mb-4" style="font-family: 'Montserrat', sans-serif; color: #1A1A1A;">
+                    Ponte pa' la pizza
+                </h2>
+                <div class="section-divider"></div>
+                <p class="text-2xl max-w-3xl mx-auto text-[#1A1A1A] font-light mb-8">
+                    Host your next event at La Santu!
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in image-hover">
+                    <img src="./assets/image_24.webp" alt="Private Events Space" class="w-full h-auto rounded-lg shadow-2xl">
+                </div>
+                <div class="fade-in">
+                    <h3 class="text-3xl font-light mb-6" style="font-family: 'Montserrat', sans-serif; color: #1A1A1A;">
+                        Your Exclusive Celebration
+                    </h3>
+                    <p class="text-lg leading-relaxed mb-6 text-[#6B7280]">
+                        Whether it's gatherings with family & friends, baby showers, corporate events, or any special celebration, the whole restaurant becomes the setting for your exclusive party for the entire night.
+                    </p>
+                    <p class="text-lg leading-relaxed mb-6 text-[#6B7280]">
+                        <strong class="text-[#E0A04B]">Private dining experiences include:</strong>
+                    </p>
+                    <ul class="text-lg leading-relaxed mb-8 text-[#6B7280] space-y-2">
+                        <li>• Family-style format dinners</li>
+                        <li>• Pizza parties with unlimited options</li>
+                        <li>• Wine and beer tastings</li>
+                        <li>• Custom tasting menus</li>
+                        <li>• Personalized menu planning with Chef Francis</li>
+                    </ul>
+                    <p class="text-lg leading-relaxed mb-8 text-[#6B7280]">
+                        <em>Note: Private event bookings are for groups of 20 or more guests.</em>
+                    </p>
+                    <div class="space-y-4">
+                        <a href="mailto:lasanturcinapr@gmail.com" class="btn-primary">Email for Private Events</a>
+                        <p class="text-sm text-[#6B7280]">
+                            Or call us at <a href="tel:787-710-8192" class="text-[#E0A04B] hover:underline">(787) 710-8192</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 md:py-24 bg-white relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-light mb-4" style="font-family: 'Montserrat', sans-serif; color: #1A1A1A;">
+                    Visit Us
+                </h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Contact Information -->
+                <div class="fade-in">
+                    <h3 class="text-2xl font-normal mb-6" style="font-family: 'Montserrat', sans-serif; color: #1A1A1A;">
+                        Contact Information
+                    </h3>
+
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-semibold mb-2 text-[#1A1A1A]">Address</h4>
+                            <p class="text-[#6B7280]">
+                                1250 Ponce de León Ave<br>
+                                Santurce, PR 00907<br>
+                                Puerto Rico
+                            </p>
+                        </div>
+
+                        <div>
+                            <h4 class="font-semibold mb-2 text-[#1A1A1A]">Phone</h4>
+                            <p>
+                                <a href="tel:787-710-8192" class="text-[#E0A04B] hover:underline text-lg">(787) 710-8192</a>
+                            </p>
+                        </div>
+
+                        <div>
+                            <h4 class="font-semibold mb-2 text-[#1A1A1A]">Email</h4>
+                            <p>
+                                <a href="mailto:lasanturcinapr@gmail.com" class="text-[#E0A04B] hover:underline">lasanturcinapr@gmail.com</a>
+                            </p>
+                        </div>
+
+                        <div>
+                            <h4 class="font-semibold mb-2 text-[#1A1A1A]">Hours</h4>
+                            <p class="text-[#6B7280]">
+                                <strong>Monday - Thursday:</strong> 5:00pm - 9:30pm<br>
+                                <strong>Friday - Saturday:</strong> 5:00pm - 10:00pm<br>
+                                <strong>Sunday:</strong> 4:00pm - 9:00pm
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mt-8">
+                        <a href="tel:787-710-8192" class="btn-primary">Call Now</a>
+                    </div>
+                </div>
+
+                <!-- Additional Info / Message -->
+                <div class="fade-in">
+                    <div class="bg-[#F5F5F5] p-8 rounded-lg shadow-lg">
+                        <h3 class="text-2xl font-normal mb-4" style="font-family: 'Montserrat', sans-serif; color: #1A1A1A;">
+                            The La Santurcina Experience
+                        </h3>
+                        <p class="mb-4 text-[#6B7280]">
+                            Welcome to our vibrant pizzeria in the heart of Santurce. We're here to serve our community with authentic Neapolitan pizza, creative cocktails, and warm hospitality.
+                        </p>
+                        <p class="mb-4 text-[#6B7280]">
+                            Our menu features house-made mozzarella and sauce, prepared fresh daily. Each pizza is crafted with care in our wood-fired oven, following traditional Neapolitan techniques.
+                        </p>
+                        <p class="mb-6 text-[#6B7280]">
+                            Sister restaurant to <strong class="text-[#E0A04B]">Vianda</strong>, one of Puerto Rico's most celebrated fine dining establishments.
+                        </p>
+                        <div class="border-t border-[#E0A04B] pt-6">
+                            <p class="text-sm italic text-[#6B7280]">
+                                "Come and have fun at this gastronomic corner of Santurce!"
+                            </p>
+                            <p class="text-sm font-semibold mt-2 text-[#1A1A1A]">
+                                - Chef Francis Guzmán & Amelia Dill
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#1A1A1A] text-white py-12 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <!-- Column 1: Logo & Contact -->
+                <div>
+                    <img src="./assets/image_0.webp" alt="La Santurcina" class="h-16 mb-4 loaded">
+                    <p class="text-sm mb-2">1250 Ponce de León Ave</p>
+                    <p class="text-sm mb-2">Santurce, PR 00907</p>
+                    <p class="text-sm mb-2">
+                        <a href="tel:787-710-8192" class="hover:text-[#E0A04B]">(787) 710-8192</a>
+                    </p>
+                    <p class="text-sm">
+                        <a href="mailto:lasanturcinapr@gmail.com" class="hover:text-[#E0A04B]">lasanturcinapr@gmail.com</a>
+                    </p>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div>
+                    <h4 class="text-xl font-normal mb-4" style="font-family: 'Montserrat', sans-serif;">Quick Links</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#home" class="hover:text-[#E0A04B]">Home</a></li>
+                        <li><a href="#story" class="hover:text-[#E0A04B]">Our Story</a></li>
+                        <li><a href="#menu" class="hover:text-[#E0A04B]">Menu</a></li>
+                        <li><a href="#gallery" class="hover:text-[#E0A04B]">Gallery</a></li>
+                        <li><a href="#private-events" class="hover:text-[#E0A04B]">Private Events</a></li>
+                        <li><a href="#contact" class="hover:text-[#E0A04B]">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Hours -->
+                <div>
+                    <h4 class="text-xl font-normal mb-4" style="font-family: 'Montserrat', sans-serif;">Hours</h4>
+                    <p class="text-sm mb-4">
+                        <strong>Mon-Thu:</strong> 5:00pm - 9:30pm<br>
+                        <strong>Fri-Sat:</strong> 5:00pm - 10:00pm<br>
+                        <strong>Sunday:</strong> 4:00pm - 9:00pm
+                    </p>
+                    <p class="text-sm mb-4">
+                        Sister restaurant to <strong class="text-[#E0A04B]">Vianda</strong>
+                    </p>
+                </div>
+            </div>
+
+            <div class="border-t border-white border-opacity-20 pt-8 text-center">
+                <p class="text-sm">
+                    © 2025 La Santurcina. All rights reserved. | Una Oda A Nuestra Comunidad
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // ========== NAVIGATION SCROLL EFFECT ==========
+        const navbar = document.getElementById('navbar');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // ========== MOBILE MENU ==========
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+        });
+
+        closeMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+        });
+
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // ========== SCROLL ANIMATIONS ==========
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // ========== SMOOTH SCROLLING ==========
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // ========== PRELOAD IMAGES ==========
+        window.addEventListener('load', () => {
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                if (img.complete) {
+                    img.classList.add('loaded');
+                } else {
+                    img.addEventListener('load', () => {
+                        img.classList.add('loaded');
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
